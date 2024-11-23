@@ -24,7 +24,7 @@ resource "aws_key_pair" "keypair" {
   public_key = tls_private_key.demo-key.public_key_openssh
 }
 resource "local_file" "private_key_file" {
-  filename        = "C:/Users/ranad/cicd/tweet-trend-new/terraform_code"
+  filename        = "C:/Users/ranad/cicd/tweet-trend-new/terraform_code/my_key.pem"
   content         = tls_private_key.demo-key.private_key_pem
   file_permission = "0600" # Secure file permissions
 }
