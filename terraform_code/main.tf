@@ -8,7 +8,7 @@ resource "aws_instance" "demo-server" {
   ami             = "ami-012967cc5a8c9f891"
   instance_type   = "t2.micro"
   key_name        = aws_key_pair.keypair.key_name
-  vpc_security_group_ids = [aws_security_group.ssh_access.name]
+  vpc_security_group_ids = [aws_security_group.ssh_access.id]
   subnet_id       = aws_subnet.public_subnet.id
 
   tags = {
