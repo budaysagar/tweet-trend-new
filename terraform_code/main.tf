@@ -48,10 +48,6 @@ resource "aws_security_group" "ssh_access" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-provider "aws" {
-  region = "us-east-1"
-}
-
 resource "aws_vpc" "demo-vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
