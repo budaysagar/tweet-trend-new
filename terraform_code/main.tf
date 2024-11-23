@@ -5,11 +5,11 @@ provider "tls" {
 }
 
 resource "aws_instance" "demo-server" {
-  ami           = "ami-012967cc5a8c9f891"
-  instance_type = "t2.micro"
-  key_name      = aws_key_pair.keypair.key_name
-  security_groups = [aws_security_group.ssh_access.name]
-  subnet_id = aws_subnet.public_subnet.id
+  ami             = "ami-012967cc5a8c9f891"
+  instance_type   = "t2.micro"
+  key_name        = aws_key_pair.keypair.key_name
+  vpc_security_group_ids = [aws_security_group.ssh_access.name]
+  subnet_id       = aws_subnet.public_subnet.id
 
   tags = {
     Name        = "demo-server"
@@ -32,13 +32,13 @@ resource "local_file" "private_key_file" {
 resource "aws_security_group" "ssh_access" {
   name        = "ssh_access"
   description = "Allow SSH access from anywhere"
-  vpc_id = aws_vpc.demo-vpc.id
+  vpc_id      = aws_vpc.demo-vpc.id
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow SSH access from anywhere
+    cidr_blocks = ["0.0.0.0/0"] # Allow SSH access from anywhere
   }
 
   egress {
