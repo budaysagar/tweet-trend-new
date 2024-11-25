@@ -11,13 +11,16 @@
     ansible.builtin.apt_repository:
       repo: "deb https://pkg.jenkins.io/debian-stable binary/"
       state: present
-  - name: update apt cache
+  - name: Install java
     ansible.builtin.apt:
+      name: openjdk-17-jdk
+      state: present
       update_cache: yes
   - name: Install jenkins
     ansible.builtin.apt:
       name: jenkins
       state: present
+      update_cache: yes
   - name: Start service httpd, if not started
     ansible.builtin.service:
       name: jenkins
