@@ -11,7 +11,7 @@ resource "aws_instance" "demo-server" {
   instance_type          = each.value              # Instance type will be each element of the list
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.ssh_access.id]
-  key_name = aws_key_pair.keypair.key_name
+  key_name               = aws_key_pair.keypair.key_name
 
   tags = {
     Name        = each.key

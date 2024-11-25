@@ -1,0 +1,27 @@
+---
+- name: Install jenkins on ubuntu
+  hosts: Jenkins-master
+  become: true
+  tasks:
+  - name: add apt key
+    ansible.builtin.apt_key:
+      url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+      state: present
+  - name: add apt repo
+    ansible.builtin.apt_repository:
+      repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+      state: present
+  - name: update apt cache
+    ansible.builtin.apt:
+      update_cache: yes
+  - name: Install jenkins
+    ansible.builtin.apt:
+      name: jenkins
+      state: present
+  - name: Start service httpd, if not started
+    ansible.builtin.service:
+      name: jenkins
+      state: started
+      enabled: yes
+
+    
