@@ -5,7 +5,7 @@ provider "tls" {
 }
 
 resource "aws_instance" "demo-server" {
-  for_each = tolist(var.instance_type)  # Convert the list to a set
+  for_each = var.instance_config  # Convert the list to a set
 
   ami                    = "ami-0866a3c8686eaeeba"  # Replace with your AMI ID
   instance_type          = each.value                # Instance type will be each element of the list
@@ -13,7 +13,7 @@ resource "aws_instance" "demo-server" {
   vpc_security_group_ids = [aws_security_group.ssh_access.id]
 
   tags = {
-    Name        = var.instance_name[each.key]
+    Name        = each.key
     Environment = "test"
   }
 }
