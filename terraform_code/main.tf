@@ -5,14 +5,15 @@ provider "tls" {
 }
 
 resource "aws_instance" "demo-server" {
-  ami             = "ami-012967cc5a8c9f891"
-  instance_type   = "t2.micro"
-  key_name        = aws_key_pair.keypair.key_name
+  for_each = tolist(var.instance_type)  # Convert the list to a set
+
+  ami                    = "ami-0866a3c8686eaeeba"  # Replace with your AMI ID
+  instance_type          = each.value                # Instance type will be each element of the list
+  subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.ssh_access.id]
-  subnet_id       = aws_subnet.public_subnet.id
 
   tags = {
-    Name        = "demo-server"
+    Name        = var.instance_name[each.key]
     Environment = "test"
   }
 }
