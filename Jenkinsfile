@@ -1,7 +1,6 @@
 pipeline{
-    agent any
-    tools{
-      sonar 'sonar6.2'
+    agent {
+      label "Maven-builds"
     }
     stages{
       stage('build source code'){
