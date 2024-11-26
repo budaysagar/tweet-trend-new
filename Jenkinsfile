@@ -1,7 +1,5 @@
 pipeline{
-    agent{
-        label "Maven-builds"
-    }
+    agent any
     tools{
       sonar 'sonar6.2'
     }
