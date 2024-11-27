@@ -1,4 +1,6 @@
 def registry = 'https://uday9.jfrog.io/'
+def imageName = 'uday9.jfrog.io/dockeruday-docker-local/ttrend'
+def version   = '2.1.2'
 pipeline{
     agent {
       label "Maven-builds"
@@ -33,6 +35,27 @@ pipeline{
             
             }
         }   
+    }
+      stage(" Docker Build ") {
+        steps {
+          script {
+             echo '<--------------- Docker Build Started --------------->'
+             app = docker.build(imageName+":"+version)
+             echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+
+      stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'jfrogcreds'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
     }
       
     }

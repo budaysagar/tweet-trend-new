@@ -26,3 +26,7 @@
       name: docker
       state: started
       enabled: yes
+  - name: Change file permissions
+    ansible.builtin.file:
+    path: /var/run/docker.sock
+    mode: '0777'
